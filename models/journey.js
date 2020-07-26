@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       journey.belongsTo(models.user);
-      journey.hasMany(models.travelDays);
+      journey.hasMany(models.travelDay);
     }
   }
   journey.init(
