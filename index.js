@@ -5,6 +5,7 @@ const loggerMiddleWare = require('morgan');
 const corsMiddleWare = require('cors');
 const authRouter = require('./routers/auth');
 const testRouter = require('./routers/test');
+const userRouter = require('./routers/user');
 
 const app = express();
 
@@ -23,6 +24,7 @@ if (process.env.DELAY) {
 
 app.use('/', authRouter);
 app.use('/test', testRouter);
+app.use('/users', userRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
