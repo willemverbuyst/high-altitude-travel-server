@@ -3,6 +3,7 @@ const express = require('express');
 const { PORT } = require('./config/constants');
 const loggerMiddleWare = require('morgan');
 const corsMiddleWare = require('cors');
+const authRouter = require('./routers/auth');
 const testRouter = require('./routers/test');
 
 const app = express();
@@ -20,6 +21,7 @@ if (process.env.DELAY) {
   });
 }
 
+app.use('/', authRouter);
 app.use('/test', testRouter);
 
 app.listen(PORT, () => {

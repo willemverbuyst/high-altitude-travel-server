@@ -1,5 +1,3 @@
-const bcrypt = require('bcrypt');
-const { SALT_ROUNDS } = require('../config/constants');
 const { Router } = require('express');
 const User = require('../models').user;
 const Journey = require('../models').journey;
@@ -13,31 +11,6 @@ router.get('/users', async (req, res, next) => {
     res.send(users);
   } catch (error) {
     next(error);
-  }
-});
-
-router.post('/signup', async (req, res, next) => {
-  const { name, email, password } = req.body;
-  if (!name | !email | !password) {
-    return res
-      .status(400)
-      .send({ message: 'Please provide name, email and passord' });
-  }
-  try {
-    const newUser = User.create({
-      name,
-      email,
-      password: bcrypt.hashSync(password, SALT_ROUNDS),
-    });
-    res.status(201).json({ message: 'A new account is created' });
-  } catch (error) {
-    if (error.name === 'SequelizeUniqueConstraintError') {
-      return res
-        .status(400)
-        .send({ message: 'There is an existing account with this email' });
-    }
-
-    return res.status(400).send({ message: 'Something went wrong, sorry' });
   }
 });
 
