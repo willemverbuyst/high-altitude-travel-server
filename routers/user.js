@@ -28,7 +28,9 @@ router.get(
       const journeys = await Journey.findAll({
         where: { userId, id: journeyId },
         attributes: ['id', 'name'],
-        include: [{ model: TravelDay, attributes: ['id', 'from', 'to'] }],
+        include: [
+          { model: TravelDay, attributes: ['id', 'date', 'from', 'to'] },
+        ],
       });
       res.send(journeys);
     } catch (error) {
